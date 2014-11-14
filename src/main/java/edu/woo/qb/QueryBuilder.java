@@ -46,12 +46,12 @@ public class QueryBuilder {
 	public QueryBuilder setQuery(Map<String, Object> queryMap) {
 		for (String key : queryMap.keySet()) {
 			if (key.startsWith(prefix)) {
-
 				// key example: prefix_[and:a1]paramName_eq_d
 				String[] split = StringUtils.split(key, "_");
 				String fieldStr = split[1];
 				ConditionType conditionType = Enum.valueOf(ConditionType.class, split[2].toUpperCase());
-				ValueType propertyType = Enum.valueOf(ValueType.class, split[3].toUpperCase());
+				ValueType propertyType = split.length == 4 ? Enum.valueOf(ValueType.class, split[3].toUpperCase())
+						: null;
 
 				CombinedSqlSegment combinedSegment;
 				String combineStr = StringUtils.substringBetween(fieldStr, groupPrefix, groupSuffix);
@@ -134,20 +134,6 @@ public class QueryBuilder {
 
 	public void setFilters(Map<String, CombinedSqlSegment> filters) {
 		this.filters = filters;
-	}
-
-	public static void main(String[] args) {
-
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("q_[or:a1]param1_eq_d", "2009-10-10");
-		map.put("q_[or:a1]param2_eq_d", "2009-10-10");
-		map.put("q_[and:a2]param1_eq_d", "2009-10-10");
-		map.put("q_[and:a2]param2_eq_d", "2009-10-10");
-		map.put("q_param2_isnull_i", "");
-		// map.put("q_param6_like_b", 1);
-
-		QueryBuilder builder = new QueryBuilder().setQuery(map);
-		System.out.println(builder.build());
 	}
 
 }

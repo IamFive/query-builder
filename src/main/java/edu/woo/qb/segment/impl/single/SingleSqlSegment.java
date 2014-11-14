@@ -55,6 +55,11 @@ public abstract class SingleSqlSegment extends SqlSegment {
 		return this.getFieldName().replace('.', '_') + "_" + RandomStringUtils.randomAlphabetic(3);
 	}
 
+	@Override
+	public boolean isParamRequired() {
+		return true;
+	}
+
 	public String getFieldName() {
 		return fieldName;
 	}

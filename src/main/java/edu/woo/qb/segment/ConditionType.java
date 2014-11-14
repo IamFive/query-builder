@@ -24,8 +24,21 @@ import edu.woo.qb.segment.impl.single.*;
  */
 public enum ConditionType {
 
-	EQ(EqualSegment.class), ISNULL(IsNullSegment.class), ISNOTNULL(NotNullSegment.class), ISEMPTY(IsEmptySegment.class), ISNOTEMPTY(
-			NotEmptySegment.class), LIKE(LikeSegment.class), LLIKE(LeftLikeSegment.class), RLIKE(RightLikeSegment.class);
+	//@off
+	EQ(EqualSegment.class), 
+	ISNULL(IsNullSegment.class), 
+	ISNOTNULL(NotNullSegment.class), 
+	ISEMPTY(IsEmptySegment.class), 
+	ISNOTEMPTY(NotEmptySegment.class), 
+	LIKE(LikeSegment.class), 
+	LLIKE(LeftLikeSegment.class), 
+	RLIKE(RightLikeSegment.class),
+	LE(LessOrEqualSegment.class),
+	GE(GreatOrEqualSegment.class),
+	LT(LessThanSegment.class),
+	GT(GreatThanSegment.class),
+	;
+	//@on
 
 	private Class<? extends SingleSqlSegment> conditionType;
 

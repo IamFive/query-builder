@@ -8,9 +8,9 @@
 	</appender>
 
 	<appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>logs/elective.log</file>
+		<file>logs/qb.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>logs/elective.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>logs/qb.%d{yyyy-MM-dd}.log</fileNamePattern>
 		</rollingPolicy>
 		<encoder>
 			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
@@ -18,16 +18,6 @@
 	</appender>
 	
 	<!-- project default level -->
-	<logger name="com.tming.elective" level="DEBUG" />
-	<logger name="org.apache.shiro" level="WARN" />
-	<logger name="org.springframework.web" level="DEBUG" />
-	<logger name="net.sf.ehcache" level="INFO" />
-
-	<logger name="jdbc.sqltiming" level="ERROR"/>
-	<logger name="jdbc.sqlonly" level="info"/>
-	<logger name="jdbc.resultset" level="ERROR"/>
-	<logger name="jdbc.audit" level="ERROR"/>
-	<logger name="jdbc.connection" level="ERROR"/>
 
 	<root level="INFO">
 		<appender-ref ref="console" />

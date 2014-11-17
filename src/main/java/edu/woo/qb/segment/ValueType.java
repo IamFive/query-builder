@@ -11,7 +11,7 @@
  * accordance with the terms of the license agreement you entered 
  * into with UFida.
  */
-package edu.woo.qb;
+package edu.woo.qb.segment;
 
 import java.util.Date;
 

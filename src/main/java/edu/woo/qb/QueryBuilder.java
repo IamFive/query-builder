@@ -43,13 +43,13 @@ public class QueryBuilder {
 
 	private Map<String, CombinedSqlSegment> filters = new HashMap<String, CombinedSqlSegment>();
 
-	public QueryBuilder setQuery(Map<String, Object> queryMap) {
+	public QueryBuilder setQuery(Map<String, String> queryMap) {
 		for (String key : queryMap.keySet()) {
 			if (key.startsWith(prefix)) {
 				// key example: prefix_[and:a1]paramName_eq_d
 				String[] split = StringUtils.split(key, "_");
 				String fieldStr = split[1];
-				ConditionType conditionType = Enum.valueOf(ConditionType.class, split[2].toUpperCase());
+				SginleSegmentType conditionType = Enum.valueOf(SginleSegmentType.class, split[2].toUpperCase());
 				ValueType propertyType = split.length == 4 ? Enum.valueOf(ValueType.class, split[3].toUpperCase())
 						: null;
 
@@ -77,7 +77,7 @@ public class QueryBuilder {
 				}
 
 				// build segment
-				SqlSegment segment = ConditionFactory.build(fieldStr, conditionType, propertyType, queryMap.get(key));
+				SqlSegment segment = SegmentFactory.build(fieldStr, conditionType, propertyType, queryMap.get(key));
 
 				// add segment to its group
 				combinedSegment.addSegment(segment);

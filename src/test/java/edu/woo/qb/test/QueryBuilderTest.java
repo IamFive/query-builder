@@ -1,21 +1,17 @@
 package edu.woo.qb.test;
 
-import java.util.*;
+import java.util.HashMap;
 
-import edu.woo.qb.*;
+import org.junit.Test;
 
-public class Test {
+import ch.qos.logback.classic.Logger;
+import edu.woo.qb.QueryBuilder;
 
-	/**
-	 *
-	 * @author Administrator
-	 *         2010-10-19 下午04:57:00
-	 *         Test.java
-	 * @param args
-	 *            TODO :
-	 *
-	 */
-	public static void main(String[] args) {
+public class QueryBuilderTest {
+	
+
+	@Test
+	public void test() {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("q_[or:a1]startTime_eq_d", "2009-10-10");

@@ -56,7 +56,7 @@ public abstract class SqlSegment {
 
 	@Override
 	public String toString() {
-		return "SqlSegment [params = " + params + ", Sql = " + asSql() + "]";
+		return "SqlSegment [Sql = " + asSql() + ", params = " + params + "]";
 	}
 
 }

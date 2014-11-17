@@ -1,8 +1,10 @@
 package edu.woo.qb.segment;
 
 import java.lang.reflect.*;
+import java.util.*;
 
 import org.apache.commons.beanutils.*;
+import org.apache.commons.beanutils.converters.*;
 import org.apache.commons.lang3.*;
 import org.slf4j.*;
 
@@ -22,6 +24,19 @@ import edu.woo.qb.segment.impl.single.*;
 public class SegmentFactory {
 
 	private static final Logger logger = LoggerFactory.getLogger(SegmentFactory.class);
+
+	static {
+		DateTimeConverter dtConverter = new DateConverter();
+		dtConverter.setPatterns(getDateFormats());
+		ConvertUtils.register(dtConverter, Date.class);
+	}
+
+	private static String[] getDateFormats() {
+		String ls = "yyyy-MM-dd HH:mm:ss";
+		String ss = "yyyy-MM-dd";
+		String rfc3399 = "yyyy-MM-dd'T'HH:mm:ss";
+		return new String[] { ls, ss, rfc3399 };
+	}
 
 	/**
 	 * parse a spec SQL string as a SingleSqlSegment
@@ -65,4 +80,5 @@ public class SegmentFactory {
 			throw new ParseException("Can't build segment.");
 		}
 	}
+
 }

@@ -16,8 +16,7 @@ Basic Example
 	map.put("q_name_LIKE_s", "woo");
 	// map.put("q_param6_like_b", 1);
 
-	QueryBuilder builder = new QueryBuilder().setQuery(map);
-	SqlSegment segment = builder.build();
+	SqlSegment segment = new QueryBuilder().build(map);
 
 	String asSql = segment.asSql();
 	Map<String, Object> params = segment.getParams();
@@ -59,8 +58,7 @@ map.put("q_[and:a2]amount_le_i", "20");
 map.put("q_buyer_isnull", "");
 // map.put("q_param6_like_b", 1);
 
-QueryBuilder builder = new QueryBuilder().setQuery(map);
-SqlSegment segment = builder.build();
+SqlSegment segment = new QueryBuilder().build(map);
 String sql = segment.asSql();
 Map<String, Object> params = segment.getParams();
 ```

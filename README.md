@@ -1,12 +1,55 @@
 Query Builder
 ====
-
 A simple tool to parse specify filter to sql.
 
 
 
 
-- code sample
+Basic Example
+=======
+```
+	HashMap<String, String> map = new HashMap<String, String>();
+	map.put("q_startTime_eq_d", "2009-10-10");
+	map.put("q_endTime_eq_d", "2009-10-10");
+	map.put("q_buyer_isnull", "");
+	map.put("q_amount_gt_i", "20");
+	map.put("q_name_LIKE_s", "woo");
+	// map.put("q_param6_like_b", 1);
+
+	QueryBuilder builder = new QueryBuilder().setQuery(map);
+	SqlSegment segment = builder.build();
+
+	String asSql = segment.asSql();
+	Map<String, Object> params = segment.getParams();
+```
+
+Sql:
+```
+(
+	1=1 
+	AND (
+		amount > ':amount_aZJ' 
+		AND endTime=:endTime_JFn 
+		AND buyer is null 
+		AND name like '%:name_FJy%' 
+		AND startTime=:startTime_Rkz
+	)
+)
+```
+
+Named-Query Parameters:
+```
+{
+	name_FJy=woo, 
+	endTime_dVZ=Sat Oct 10 00:00:00 CST 2009, 
+	amount_aZJ=20, 
+	startTime_zYR=Sat Oct 10 00:00:00 CST 2009
+}
+```
+
+Example with combined groups (and & or)
+=======
+
 ```
 HashMap<String, String> map = new HashMap<String, String>();
 map.put("q_[or:a1]startTime_eq_d", "2009-10-10");
@@ -18,11 +61,10 @@ map.put("q_buyer_isnull", "");
 
 QueryBuilder builder = new QueryBuilder().setQuery(map);
 SqlSegment segment = builder.build();
-String asSql = segment.asSql();
+String sql = segment.asSql();
 Map<String, Object> params = segment.getParams();
 ```
 
-Output:
 
 sql: 
 ```
@@ -34,7 +76,7 @@ sql:
 )
 ```
 
-Named Query Parameters:
+Named-Query Parameters:
 ```
 {
 	amount_USR=10, 

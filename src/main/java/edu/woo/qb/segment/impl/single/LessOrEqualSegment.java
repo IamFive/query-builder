@@ -36,7 +36,7 @@ public class LessOrEqualSegment extends SingleSqlSegment {
 	@Override
 	public String asSql() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(this.fieldName).append(" <= '%:").append(this.getParamKey()).append("'");
+		builder.append(this.fieldName).append(" <= ':").append(this.getParamKey()).append("'");
 		return builder.toString();
 	}
 

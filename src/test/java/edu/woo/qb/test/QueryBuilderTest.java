@@ -5,6 +5,7 @@ import java.util.*;
 import org.junit.*;
 
 import edu.woo.qb.*;
+import edu.woo.qb.segment.*;
 
 public class QueryBuilderTest {
 
@@ -20,7 +21,12 @@ public class QueryBuilderTest {
 		// map.put("q_param6_like_b", 1);
 
 		QueryBuilder builder = new QueryBuilder().setQuery(map);
-		System.out.println(builder.build());
+		SqlSegment segment = builder.build();
+
+		String asSql = segment.asSql();
+		Map<String, Object> params = segment.getParams();
+
+		System.out.println(segment);
 	}
 
 }

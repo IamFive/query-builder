@@ -41,9 +41,33 @@ public class QueryBuilder {
 	private String groupSuffix = DEFAULT_GROUP_SUFFIX;
 	private String prefix = DEFAULT_PREFIX;
 
-	private Map<String, CombinedSqlSegment> filters = new HashMap<String, CombinedSqlSegment>();
+	/**
+	 * combine all SQL segment groups
+	 * 
+	 * @return
+	 */
+	public SqlSegment build(Map<String, String> queryMap) {
+		Map<String, CombinedSqlSegment> filters = parseQueryMap(queryMap);
+		// combine all SQL segment groups
+		AndSegment andCondition = new AndSegment();
+		andCondition.addSegment(new OneEqOneSegment());
+		for (String key : filters.keySet()) {
+			CombinedSqlSegment condition = filters.get(key);
+			andCondition.addSegment(condition);
+		}
+		return andCondition;
+	}
 
-	public QueryBuilder setQuery(Map<String, String> queryMap) {
+	/**
+	 * 
+	 * parse and group query strings
+	 * 
+	 * @param queryMap
+	 * @return
+	 */
+	private Map<String, CombinedSqlSegment> parseQueryMap(Map<String, String> queryMap) {
+
+		Map<String, CombinedSqlSegment> filters = new HashMap<String, CombinedSqlSegment>();
 		for (String key : queryMap.keySet()) {
 			if (key.startsWith(prefix)) {
 				// key example: prefix_[and:a1]paramName_eq_d
@@ -78,62 +102,39 @@ public class QueryBuilder {
 
 				// build segment
 				SqlSegment segment = SegmentFactory.build(fieldStr, conditionType, propertyType, queryMap.get(key));
-
 				// add segment to its group
 				combinedSegment.addSegment(segment);
 			}
 		}
 
-		return this;
-	}
-
-	/**
-	 * 返回sql
-	 * 
-	 * @return
-	 */
-	public SqlSegment build() {
-		AndSegment andCondition = new AndSegment();
-		andCondition.addSegment(new OneEqOneSegment());
-
-		for (String key : filters.keySet()) {
-			CombinedSqlSegment condition = filters.get(key);
-			andCondition.addSegment(condition);
-		}
-
-		return andCondition;
+		return filters;
 	}
 
 	public String getPrefix() {
 		return prefix;
 	}
 
-	public void setPrefix(String prefix) {
+	public QueryBuilder setPrefix(String prefix) {
 		this.prefix = prefix;
+		return this;
 	}
 
 	public String getGroupPrefix() {
 		return groupPrefix;
 	}
 
-	public void setGroupPrefix(String groupPrefix) {
+	public QueryBuilder setGroupPrefix(String groupPrefix) {
 		this.groupPrefix = groupPrefix;
+		return this;
 	}
 
 	public String getGroupSuffix() {
 		return groupSuffix;
 	}
 
-	public void setGroupSuffix(String groupSuffix) {
+	public QueryBuilder setGroupSuffix(String groupSuffix) {
 		this.groupSuffix = groupSuffix;
-	}
-
-	public Map<String, CombinedSqlSegment> getFilters() {
-		return filters;
-	}
-
-	public void setFilters(Map<String, CombinedSqlSegment> filters) {
-		this.filters = filters;
+		return this;
 	}
 
 }

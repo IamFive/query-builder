@@ -20,8 +20,7 @@ public class QueryBuilderTest {
 		map.put("q_buyer_isnull", "");
 		// map.put("q_param6_like_b", 1);
 
-		QueryBuilder builder = new QueryBuilder().setQuery(map);
-		SqlSegment segment = builder.build();
+		SqlSegment segment = new QueryBuilder().build(map);
 
 		String asSql = segment.asSql();
 		Map<String, Object> params = segment.getParams();
@@ -33,20 +32,18 @@ public class QueryBuilderTest {
 	public void testSingle() {
 
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("q_startTime_eq_d", "2009-10-10");
-		map.put("q_endTime_eq_d", "2009-10-10");
-		map.put("q_buyer_isnull", "");
-		map.put("q_amount_gt_i", "20");
-		map.put("q_name_LIKE_s", "woo");
+		map.put("s_startTime_eq_d", "2009-10-10");
+		map.put("s_endTime_eq_d", "2009-10-10");
+		map.put("s_buyer_isnull", "");
+		map.put("s_amount_gt_i", "20");
+		map.put("s_name_LIKE_s", "woo");
 		// map.put("q_param6_like_b", 1);
 
-		QueryBuilder builder = new QueryBuilder().setQuery(map);
-		SqlSegment segment = builder.build();
+		SqlSegment segment = new QueryBuilder().setPrefix("s_").build(map);
 
 		String asSql = segment.asSql();
 		Map<String, Object> params = segment.getParams();
 
 		System.out.println(segment);
 	}
-
 }

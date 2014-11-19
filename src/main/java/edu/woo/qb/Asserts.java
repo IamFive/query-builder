@@ -53,7 +53,7 @@ public class Asserts {
 	 * @param length
 	 */
 	public static void length(String[] split, int length, final String name) {
-		if (split == null || split.length != length) {
+		if ((split == null) || (split.length != length)) {
 			throw new IllegalStateException(name + " is illegal");
 		}
 	}

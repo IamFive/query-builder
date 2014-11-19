@@ -14,7 +14,7 @@ public class QueryBuilderTest {
 
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("q_[or:a1]startTime_eq_d", "2009-10-10");
-		map.put("q_[or:a1]endTime_eq_d", "2009-10-10");
+		map.put("q_[or:a1]endTime_eq_d", "2009-10-10 12:11:11");
 		map.put("q_[and:a2]amount_gt_i", "10");
 		map.put("q_[and:a2]amount_le_i", "20");
 		map.put("q_buyer_isnull", "");

@@ -1,12 +1,19 @@
 package edu.woo.qb;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.apache.commons.lang3.*;
+import org.apache.commons.lang3.StringUtils;
 
-import edu.woo.qb.segment.*;
-import edu.woo.qb.segment.impl.combined.*;
-import edu.woo.qb.segment.impl.single.*;
+import edu.woo.qb.segment.SegmentFactory;
+import edu.woo.qb.segment.Settings;
+import edu.woo.qb.segment.SginleSegmentType;
+import edu.woo.qb.segment.SqlSegment;
+import edu.woo.qb.segment.ValueType;
+import edu.woo.qb.segment.impl.combined.AndSegment;
+import edu.woo.qb.segment.impl.combined.CombinedSqlSegment;
+import edu.woo.qb.segment.impl.combined.OrSegment;
+import edu.woo.qb.segment.impl.single.OneEqOneSegment;
 
 /**
  * @author wuqb
@@ -28,6 +35,24 @@ public class QueryBuilder {
 	private String groupSuffix = DEFAULT_GROUP_SUFFIX;
 	private String prefix = DEFAULT_PREFIX;
 
+	private boolean pretty = false;
+
+	private Settings settings = Settings.jdbc();
+
+	public QueryBuilder() {
+	}
+
+	public static QueryBuilder jdbc() {
+		QueryBuilder qb = new QueryBuilder();
+		return qb;
+	}
+
+	public static QueryBuilder mybatis() {
+		QueryBuilder qb = new QueryBuilder();
+		qb.namedQueryPrefix("#{").namedQuerySuffix("}");
+		return qb;
+	}
+
 	/**
 	 * combine all SQL segment groups
 	 * 
@@ -36,7 +61,7 @@ public class QueryBuilder {
 	public SqlSegment build(Map<String, String> queryMap) {
 		Map<String, CombinedSqlSegment> filters = parseQueryMap(queryMap);
 		// combine all SQL segment groups
-		AndSegment andCondition = new AndSegment();
+		AndSegment andCondition = new AndSegment(this.pretty);
 		andCondition.addSegment(new OneEqOneSegment());
 		for (String key : filters.keySet()) {
 			CombinedSqlSegment condition = filters.get(key);
@@ -82,13 +107,14 @@ public class QueryBuilder {
 				} else {
 					combinedSegment = filters.get(DEFAULT_COMBINED);
 					if (combinedSegment == null) {
-						combinedSegment = new AndSegment();
+						combinedSegment = new AndSegment(this.pretty);
 						filters.put(DEFAULT_COMBINED, combinedSegment);
 					}
 				}
 
 				// build segment
-				SqlSegment segment = SegmentFactory.build(fieldStr, conditionType, propertyType, queryMap.get(key));
+				SqlSegment segment = SegmentFactory.build(fieldStr, conditionType, propertyType, queryMap.get(key),
+						settings);
 				// add segment to its group
 				combinedSegment.addSegment(segment);
 			}
@@ -101,7 +127,7 @@ public class QueryBuilder {
 		return prefix;
 	}
 
-	public QueryBuilder setPrefix(String prefix) {
+	public QueryBuilder prefix(String prefix) {
 		this.prefix = prefix;
 		return this;
 	}
@@ -121,6 +147,50 @@ public class QueryBuilder {
 
 	public QueryBuilder setGroupSuffix(String groupSuffix) {
 		this.groupSuffix = groupSuffix;
+		return this;
+	}
+
+	/**
+	 * @return the settings
+	 */
+	public Settings getSettings() {
+		return settings;
+	}
+
+	/**
+	 * @param settings
+	 *            the settings to set
+	 */
+	public void setSettings(Settings settings) {
+		this.settings = settings;
+	}
+
+	/**
+	 * @param namedQueryPrefix
+	 *            the namedQueryPrefix to set
+	 */
+	public QueryBuilder namedQueryPrefix(String namedQueryPrefix) {
+		this.settings.setNamedQueryPrefix(namedQueryPrefix);
+		return this;
+	}
+
+
+	/**
+	 * @param namedQuerySuffix
+	 *            the namedQuerySuffix to set
+	 */
+	public QueryBuilder namedQuerySuffix(String namedQuerySuffix) {
+		this.settings.setNamedQuerySuffix(namedQuerySuffix);
+		return this;
+	}
+
+	/**
+	 * @param pretty
+	 *            the pretty to set
+	 * @return
+	 */
+	public QueryBuilder pretty(boolean pretty) {
+		this.pretty = pretty;
 		return this;
 	}
 

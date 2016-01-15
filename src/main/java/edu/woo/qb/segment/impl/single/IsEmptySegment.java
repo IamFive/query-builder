@@ -1,5 +1,7 @@
 package edu.woo.qb.segment.impl.single;
 
+import edu.woo.qb.segment.Settings;
+
 /**
  * @author wuqb
  * @date 2010-9-10
@@ -11,8 +13,8 @@ public class IsEmptySegment extends SingleSqlSegment {
 	 * @param fieldName
 	 * @param paramValue
 	 */
-	public IsEmptySegment(String propertyName, Object propertyValue) {
-		super(propertyName, propertyValue);
+	public IsEmptySegment(String fieldName, Object paramValue, Settings settings) {
+		super(fieldName, paramValue, settings);
 	}
 
 	/*

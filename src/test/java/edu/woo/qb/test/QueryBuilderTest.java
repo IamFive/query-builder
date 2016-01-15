@@ -1,11 +1,11 @@
 package edu.woo.qb.test;
 
-import java.util.*;
+import java.util.HashMap;
 
-import org.junit.*;
+import org.junit.Test;
 
-import edu.woo.qb.*;
-import edu.woo.qb.segment.*;
+import edu.woo.qb.QueryBuilder;
+import edu.woo.qb.segment.SqlSegment;
 
 public class QueryBuilderTest {
 
@@ -20,11 +20,7 @@ public class QueryBuilderTest {
 		map.put("q_buyer_isnull", "");
 		// map.put("q_param6_like_b", 1);
 
-		SqlSegment segment = new QueryBuilder().build(map);
-
-		String asSql = segment.asSql();
-		Map<String, Object> params = segment.getParams();
-
+		SqlSegment segment = QueryBuilder.jdbc().pretty(true).build(map);
 		System.out.println(segment);
 	}
 
@@ -39,10 +35,7 @@ public class QueryBuilderTest {
 		map.put("s_name_LIKE_s", "woo");
 		// map.put("q_param6_like_b", 1);
 
-		SqlSegment segment = new QueryBuilder().setPrefix("s_").build(map);
-
-		String asSql = segment.asSql();
-		Map<String, Object> params = segment.getParams();
+		SqlSegment segment = QueryBuilder.mybatis().prefix("s_").pretty(true).build(map);
 
 		System.out.println(segment);
 	}

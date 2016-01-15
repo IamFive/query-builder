@@ -1,15 +1,18 @@
 package edu.woo.qb.segment;
 
-import java.lang.reflect.*;
-import java.util.*;
+import java.lang.reflect.Constructor;
+import java.util.Date;
 
-import org.apache.commons.beanutils.*;
-import org.apache.commons.beanutils.converters.*;
-import org.apache.commons.lang3.*;
-import org.slf4j.*;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.converters.DateConverter;
+import org.apache.commons.beanutils.converters.DateTimeConverter;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import edu.woo.qb.*;
-import edu.woo.qb.segment.impl.single.*;
+import edu.woo.qb.Asserts;
+import edu.woo.qb.ParseException;
+import edu.woo.qb.segment.impl.single.SingleSqlSegment;
 
 /**
  * 
@@ -45,7 +48,7 @@ public class SegmentFactory {
 	 * @param value
 	 * @return
 	 */
-	public static SingleSqlSegment parse(final String key, final String value) {
+	public static SingleSqlSegment parse(final String key, final String value, Settings settings) {
 
 		String fieldName;
 		SginleSegmentType segmentType;
@@ -63,18 +66,19 @@ public class SegmentFactory {
 			throw new ParseException("Can't parse {0} as a known segment.", key);
 		}
 
-		return build(fieldName, segmentType, valueType, value);
+		return build(fieldName, segmentType, valueType, value, settings);
 	}
 
 	public static SingleSqlSegment build(String fieldName, SginleSegmentType segmentType, ValueType valueType,
-			String value) {
+			String value, Settings settings) {
 		try {
 			Object paramValue = value;
 			if (!ValueType.S.equals(valueType)) {
 				paramValue = StringUtils.isNotBlank(value) ? ConvertUtils.convert(value, valueType.getValue()) : null;
 			}
-			Constructor<?> constructor = segmentType.getValue().getConstructor(String.class, Object.class);
-			return (SingleSqlSegment) constructor.newInstance(fieldName, paramValue);
+			Constructor<?> constructor = segmentType.getValue().getConstructor(String.class, Object.class,
+					Settings.class);
+			return (SingleSqlSegment) constructor.newInstance(fieldName, paramValue, settings);
 		} catch (Exception e) {
 			logger.error("Can't build segment.", e);
 			throw new ParseException("Can't build segment.");

@@ -1,5 +1,7 @@
 package edu.woo.qb.segment.impl.single;
 
+import edu.woo.qb.segment.Settings;
+
 /**
  * @author wuqb
  * @date 2010-9-10
@@ -11,8 +13,8 @@ public class GreatThanSegment extends SingleSqlSegment {
 	 * @param fieldName
 	 * @param paramValue
 	 */
-	public GreatThanSegment(String propertyName, Object propertyValue) {
-		super(propertyName, propertyValue);
+	public GreatThanSegment(String fieldName, Object paramValue, Settings settings) {
+		super(fieldName, paramValue, settings);
 	}
 
 	/*
@@ -22,9 +24,8 @@ public class GreatThanSegment extends SingleSqlSegment {
 	 */
 	@Override
 	public String asSql() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(this.fieldName).append(" > ':").append(this.getParamKey()).append("'");
-		return builder.toString();
+		return buildSql(">");
 	}
+
 
 }

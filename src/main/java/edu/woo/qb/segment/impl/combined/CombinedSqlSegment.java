@@ -1,10 +1,11 @@
 package edu.woo.qb.segment.impl.combined;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.apache.commons.lang3.*;
+import org.apache.commons.lang3.StringUtils;
 
-import edu.woo.qb.segment.*;
+import edu.woo.qb.segment.SqlSegment;
 
 /**
  * 组合型查询条件
@@ -15,7 +16,18 @@ import edu.woo.qb.segment.*;
  */
 public abstract class CombinedSqlSegment extends SqlSegment {
 
-	protected List<SqlSegment> segments = new ArrayList<SqlSegment>();;
+	protected List<SqlSegment> segments = new ArrayList<SqlSegment>();
+	protected boolean pretty = false;
+
+	public CombinedSqlSegment() {
+	}
+
+	/**
+	 * @param pretty
+	 */
+	public CombinedSqlSegment(boolean pretty) {
+		this.pretty = pretty;
+	}
 
 	public String join(String prefix, String suffix, String sep) {
 		StringBuilder builder = new StringBuilder("(");
@@ -26,7 +38,7 @@ public abstract class CombinedSqlSegment extends SqlSegment {
 			list.add(asSql);
 		}
 
-		String join = StringUtils.join(list, " " + sep + " ");
+		String join = StringUtils.join(list, (pretty ? " \n" : " ") + sep + " ");
 		builder.append(join);
 		return builder.append(")").toString();
 	}

@@ -1,5 +1,7 @@
 package edu.woo.qb.segment.impl.single;
 
+import edu.woo.qb.segment.Settings;
+
 /**
  * @author wuqb
  * @date 2010-9-10
@@ -11,8 +13,8 @@ public class LikeSegment extends SingleSqlSegment {
 	 * @param fieldName
 	 * @param paramValue
 	 */
-	public LikeSegment(String propertyName, Object propertyValue) {
-		super(propertyName, propertyValue);
+	public LikeSegment(String fieldName, Object paramValue, Settings settings) {
+		super(fieldName, "%" + paramValue + "%", settings);
 	}
 
 	/*
@@ -22,9 +24,7 @@ public class LikeSegment extends SingleSqlSegment {
 	 */
 	@Override
 	public String asSql() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(this.fieldName).append(" like '%:").append(this.getParamKey()).append("%'");
-		return builder.toString();
+		return buildSql("like");
 	}
 
 	/*

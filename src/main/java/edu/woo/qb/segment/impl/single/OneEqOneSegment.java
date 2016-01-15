@@ -1,6 +1,6 @@
 package edu.woo.qb.segment.impl.single;
 
-import edu.woo.qb.segment.*;
+import edu.woo.qb.segment.SqlSegment;
 
 /**
  * @author wuqb

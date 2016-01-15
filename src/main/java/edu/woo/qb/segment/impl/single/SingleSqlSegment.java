@@ -1,8 +1,11 @@
 package edu.woo.qb.segment.impl.single;
 
-import org.apache.commons.lang3.*;
+import java.text.MessageFormat;
 
-import edu.woo.qb.segment.*;
+import org.apache.commons.lang3.RandomStringUtils;
+
+import edu.woo.qb.segment.Settings;
+import edu.woo.qb.segment.SqlSegment;
 
 /**
  * @author wuqb
@@ -24,9 +27,10 @@ public abstract class SingleSqlSegment extends SqlSegment {
 	 * @param fieldName
 	 * @param paramValue
 	 */
-	public SingleSqlSegment(String fieldName, Object paramValue) {
+	public SingleSqlSegment(String fieldName, Object paramValue, Settings settings) {
 		this.fieldName = fieldName;
 		this.paramValue = paramValue;
+		this.settings = settings;
 		if (this.isParamRequired()) {
 			this.paramKey = this.getRandomKey();
 			this.addParam(this.paramKey, this.paramValue);
@@ -39,12 +43,19 @@ public abstract class SingleSqlSegment extends SqlSegment {
 	 * @return
 	 */
 	protected String getRandomKey() {
-		return this.getFieldName().replace('.', '_') + "_" + RandomStringUtils.randomAlphabetic(3);
+		return this.getFieldName().replace('.', '_') + "_" + RandomStringUtils.randomNumeric(3);
 	}
 
 	@Override
 	public boolean isParamRequired() {
 		return true;
+	}
+
+	protected String buildSql(String op) {
+		String format = "{0} {1} {2}{3}{4}";
+		String sql = MessageFormat.format(format, this.fieldName, op, this.getSettings().getNamedQueryPrefix(),
+				this.paramKey, this.getSettings().getNamedQuerySuffix());
+		return sql;
 	}
 
 	public String getFieldName() {

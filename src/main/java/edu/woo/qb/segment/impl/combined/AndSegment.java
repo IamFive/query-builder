@@ -7,6 +7,20 @@ package edu.woo.qb.segment.impl.combined;
  */
 public class AndSegment extends CombinedSqlSegment {
 
+	/**
+	 * 
+	 */
+	public AndSegment() {
+		super();
+	}
+
+	/**
+	 * @param pretty
+	 */
+	public AndSegment(boolean pretty) {
+		super(pretty);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

@@ -1,6 +1,7 @@
 package edu.woo.qb.segment;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -28,6 +29,7 @@ public abstract class SqlSegment {
 	 * named query parameter map
 	 */
 	public Map<String, Object> params = new HashMap<String, Object>();
+	public Settings settings;
 
 	public Map<String, Object> getParams() {
 		return params;
@@ -39,6 +41,21 @@ public abstract class SqlSegment {
 
 	public void addParam(String key, Object value) {
 		params.put(key, value);
+	}
+
+	/**
+	 * @return the settings
+	 */
+	public Settings getSettings() {
+		return settings;
+	}
+
+	/**
+	 * @param settings
+	 *            the settings to set
+	 */
+	public void setSettings(Settings settings) {
+		this.settings = settings;
 	}
 
 	@Override

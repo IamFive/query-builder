@@ -50,10 +50,11 @@ public abstract class CombinedSqlSegment extends SqlSegment {
 		}
 	}
 
-	public void addSegments(List<SqlSegment> segments) {
+	public CombinedSqlSegment addSegments(SqlSegment... segments) {
 		for (SqlSegment segment : segments) {
 			this.addSegment(segment);
 		}
+		return this;
 	}
 
 	public List<SqlSegment> getSegments() {

@@ -9,7 +9,7 @@ import edu.woo.qb.segment.impl.single.*;
  * @date 2010-9-10
  * @version $Revision$
  */
-public enum SginleSegmentType {
+public enum SingleSegmentType {
 
 	//@off
 	EQ(EqualSegment.class), 
@@ -29,7 +29,7 @@ public enum SginleSegmentType {
 
 	private Class<? extends SingleSqlSegment> conditionType;
 
-	SginleSegmentType(Class<? extends SingleSqlSegment> conditionType) {
+	SingleSegmentType(Class<? extends SingleSqlSegment> conditionType) {
 		this.conditionType = conditionType;
 	}
 

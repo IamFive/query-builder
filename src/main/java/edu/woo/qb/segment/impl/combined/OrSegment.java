@@ -14,6 +14,6 @@ public class OrSegment extends CombinedSqlSegment {
 	 */
 	@Override
 	public String asSql() {
-		return this.join("(", ")", "OR");
+		return this.join("(", ")", "or");
 	}
 }

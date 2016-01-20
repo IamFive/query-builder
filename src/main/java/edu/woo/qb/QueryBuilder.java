@@ -7,13 +7,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import edu.woo.qb.segment.SegmentFactory;
 import edu.woo.qb.segment.Settings;
-import edu.woo.qb.segment.SginleSegmentType;
+import edu.woo.qb.segment.SingleSegmentType;
 import edu.woo.qb.segment.SqlSegment;
 import edu.woo.qb.segment.ValueType;
 import edu.woo.qb.segment.impl.combined.AndSegment;
 import edu.woo.qb.segment.impl.combined.CombinedSqlSegment;
 import edu.woo.qb.segment.impl.combined.OrSegment;
-import edu.woo.qb.segment.impl.single.OneEqOneSegment;
 
 /**
  * @author wuqb
@@ -69,7 +68,6 @@ public class QueryBuilder {
 		Map<String, CombinedSqlSegment> filters = parseQueryMap(queryMap);
 		// combine all SQL segment groups
 		AndSegment andCondition = new AndSegment(this.pretty);
-		andCondition.addSegment(new OneEqOneSegment());
 		for (String key : filters.keySet()) {
 			CombinedSqlSegment condition = filters.get(key);
 			andCondition.addSegment(condition);
@@ -92,7 +90,7 @@ public class QueryBuilder {
 				// key example: prefix_[and:a1]paramName_eq_d
 				String[] split = StringUtils.split(key, "_");
 				String fieldStr = split[1];
-				SginleSegmentType conditionType = Enum.valueOf(SginleSegmentType.class, split[2].toUpperCase());
+				SingleSegmentType conditionType = Enum.valueOf(SingleSegmentType.class, split[2].toUpperCase());
 				ValueType propertyType = split.length == 4 ? Enum.valueOf(ValueType.class, split[3].toUpperCase())
 						: null;
 

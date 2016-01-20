@@ -28,7 +28,7 @@ public class AndSegment extends CombinedSqlSegment {
 	 */
 	@Override
 	public String asSql() {
-		return this.join("(", ")", "AND");
+		return this.join("(", ")", "and");
 	}
 
 }

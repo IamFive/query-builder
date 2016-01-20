@@ -20,6 +20,8 @@ public class Settings {
 	private String namedQueryPrefix = DEFAULT_NAMED_QUERY_PREFIX;
 	private String namedQuerySuffix = DEFAULT_NAMED_QUERY_SUFFIX;
 
+	private Boolean useNamedQuery = true;
+
 
 	/**
 	 * 
@@ -38,8 +40,27 @@ public class Settings {
 		this.namedQuerySuffix = namedQuerySuffix;
 	}
 
+	/**
+	 * @param namedQueryPrefix
+	 * @param namedQuerySuffix
+	 * @param useNamedQuery
+	 */
+	public Settings(String namedQueryPrefix, String namedQuerySuffix, Boolean useNamedQuery) {
+		super();
+		this.namedQueryPrefix = namedQueryPrefix;
+		this.namedQuerySuffix = namedQuerySuffix;
+		this.useNamedQuery = useNamedQuery;
+	}
+
+	public static Settings namedQuery() {
+		return new Settings(DEFAULT_NAMED_QUERY_PREFIX, DEFAULT_NAMED_QUERY_SUFFIX, true);
+	}
+
+	/**
+	 * @return
+	 */
 	public static Settings jdbc() {
-		return new Settings();
+		return new Settings("", "", false);
 	}
 
 
@@ -73,6 +94,20 @@ public class Settings {
 		this.namedQuerySuffix = namedQuerySuffix;
 	}
 
+	/**
+	 * @return the useNamedQuery
+	 */
+	public Boolean getUseNamedQuery() {
+		return useNamedQuery;
+	}
+
+	/**
+	 * @param useNamedQuery
+	 *            the useNamedQuery to set
+	 */
+	public void setUseNamedQuery(Boolean useNamedQuery) {
+		this.useNamedQuery = useNamedQuery;
+	}
 
 
 }

@@ -44,12 +44,19 @@ public class QueryBuilder {
 
 	public static QueryBuilder jdbc() {
 		QueryBuilder qb = new QueryBuilder();
+		qb.setSettings(Settings.jdbc());
+		return qb;
+	}
+
+	public static QueryBuilder namedQuery() {
+		QueryBuilder qb = new QueryBuilder();
+		qb.setSettings(Settings.namedQuery());
 		return qb;
 	}
 
 	public static QueryBuilder mybatis() {
 		QueryBuilder qb = new QueryBuilder();
-		qb.namedQueryPrefix("#{").namedQuerySuffix("}");
+		qb.setSettings(new Settings("#{", "}", true));
 		return qb;
 	}
 

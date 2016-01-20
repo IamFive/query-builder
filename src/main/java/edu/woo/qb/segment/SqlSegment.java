@@ -1,6 +1,9 @@
 package edu.woo.qb.segment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,16 +31,25 @@ public abstract class SqlSegment {
 	/**
 	 * named query parameter map
 	 */
-	public Map<String, Object> params = new HashMap<String, Object>();
-	public Settings settings;
+	protected Map<String, Object> params = new LinkedHashMap<String, Object>();
+	protected Settings settings = Settings.namedQuery();
 
 	public Map<String, Object> getParams() {
 		return params;
 	}
 
-	public void setParams(Map<String, Object> params) {
-		this.params = params;
+	public Map<String, Object> getKeyedParams() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.putAll(params);
+		return map;
 	}
+
+	public List<Object> getListParams() {
+		List<Object> dest = new ArrayList<Object>();
+		dest.addAll(params.values());
+		return dest;
+	}
+
 
 	public void addParam(String key, Object value) {
 		params.put(key, value);

@@ -14,6 +14,11 @@ import edu.woo.qb.segment.SqlSegment;
  */
 public abstract class SingleSqlSegment extends SqlSegment {
 
+	/**
+	 * sql segment format
+	 */
+	private static final String SEGMENT = "{0} {1} {2}{3}{4}";
+
 	/** 属性名称 */
 	protected String fieldName;
 
@@ -52,9 +57,11 @@ public abstract class SingleSqlSegment extends SqlSegment {
 	}
 
 	protected String buildSql(String op) {
-		String format = "{0} {1} {2}{3}{4}";
-		String sql = MessageFormat.format(format, this.fieldName, op, this.getSettings().getNamedQueryPrefix(),
-				this.paramKey, this.getSettings().getNamedQuerySuffix());
+		Boolean useNamedQuery = this.settings.getUseNamedQuery();
+		String prefix = useNamedQuery ? this.getSettings().getNamedQueryPrefix() : "";
+		String suffix = useNamedQuery ? this.getSettings().getNamedQuerySuffix() : "";
+		String key = useNamedQuery ? this.paramKey : "?";
+		String sql = MessageFormat.format(SEGMENT, this.fieldName, op, prefix, key, suffix);
 		return sql;
 	}
 

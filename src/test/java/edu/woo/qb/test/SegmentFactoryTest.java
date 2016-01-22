@@ -5,9 +5,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.woo.qb.segment.SegmentFactory;
-import edu.woo.qb.segment.impl.combined.CombinedSqlSegment;
-import edu.woo.qb.segment.impl.single.SingleSqlSegment;
+import com.woo.qb.segment.SegmentFactory;
+import com.woo.qb.segment.impl.combined.CombinedSqlSegment;
+import com.woo.qb.segment.impl.single.SingleSqlSegment;
 
 public class SegmentFactoryTest {
 

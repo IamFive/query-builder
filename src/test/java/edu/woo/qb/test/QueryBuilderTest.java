@@ -6,8 +6,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.woo.qb.QueryBuilder;
-import edu.woo.qb.segment.SqlSegment;
+import com.woo.qb.QueryBuilder;
+import com.woo.qb.segment.SqlSegment;
 
 public class QueryBuilderTest {
 

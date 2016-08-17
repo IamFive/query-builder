@@ -7,13 +7,13 @@ import com.woo.qb.segment.Settings;
  * @date 2010-9-10
  * @version $Revision$
  */
-public class NotInSegment extends InSegment {
+public class AnySegment extends SingleSqlSegment {
 
 	/**
 	 * @param fieldName
 	 * @param paramValue
 	 */
-	public NotInSegment(String fieldName, Object paramValue, Settings settings) {
+	public AnySegment(String fieldName, Object paramValue, Settings settings) {
 		super(fieldName, paramValue, settings);
 	}
 
@@ -24,7 +24,16 @@ public class NotInSegment extends InSegment {
 	 */
 	@Override
 	public String asSql() {
-		return buildSql("not in");
+		return buildSql("=");
+	}
+
+	public String getSqlFormatter() {
+		return "{2}{3}{4} {1} any({0})";
+	}
+
+	@Override
+	public boolean isParamRequired() {
+		return true;
 	}
 
 }

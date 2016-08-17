@@ -1,5 +1,6 @@
 package com.woo.qb.segment;
 
+import com.woo.qb.segment.impl.single.AnySegment;
 import com.woo.qb.segment.impl.single.EqualSegment;
 import com.woo.qb.segment.impl.single.GreatOrEqualSegment;
 import com.woo.qb.segment.impl.single.GreatThanSegment;
@@ -42,6 +43,7 @@ public enum SingleSegmentType {
 	GT(GreatThanSegment.class),
 	IN(InSegment.class),
 	NIN(NotInSegment.class),
+	ANY(AnySegment.class),
 	;
 	//@on
 

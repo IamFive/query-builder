@@ -15,7 +15,6 @@ public class InSegment extends SingleSqlSegment {
 	 */
 	public InSegment(String fieldName, Object paramValue, Settings settings) {
 		super(fieldName, paramValue, settings);
-		this.paramKey = this.getRandomKey();
 	}
 
 	/*
@@ -26,6 +25,10 @@ public class InSegment extends SingleSqlSegment {
 	@Override
 	public String asSql() {
 		return buildSql("in");
+	}
+
+	public String getSqlFormatter() {
+		return "{0} {1} ({2}{3}{4})";
 	}
 
 	@Override

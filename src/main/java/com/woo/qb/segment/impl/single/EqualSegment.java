@@ -15,7 +15,6 @@ public class EqualSegment extends SingleSqlSegment {
 	 */
 	public EqualSegment(String fieldName, Object paramValue, Settings settings) {
 		super(fieldName, paramValue, settings);
-		this.paramKey = this.getRandomKey();
 	}
 
 	/*

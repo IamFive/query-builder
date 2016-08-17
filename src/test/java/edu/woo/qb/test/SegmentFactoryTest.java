@@ -1,5 +1,8 @@
 package edu.woo.qb.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -34,6 +37,29 @@ public class SegmentFactoryTest {
 
 		logger.info("sql segment is -> {}", eq.asSql());
 		logger.info("sql param is -> {}", eq.getKeyedParams());
+	}
+
+	@Test
+	public void testInSegment() {
+
+		List<String> list = new ArrayList<String>();
+		list.add("woo");
+		list.add("cubic");
+		SegmentFactory $ = SegmentFactory.namedQuery();
+		SingleSqlSegment eq = $.in("name", list);
+
+		logger.info("sql segment is -> {}", eq.asSql());
+		logger.info("sql param is -> {}", eq.getKeyedParams());
+	}
+
+	@Test
+	public void testAnySegment() {
+
+		SegmentFactory $ = SegmentFactory.namedQuery();
+		SingleSqlSegment any = $.any("name", "woo");
+
+		logger.info("sql segment is -> {}", any.asSql());
+		logger.info("sql param is -> {}", any.getKeyedParams());
 	}
 
 }

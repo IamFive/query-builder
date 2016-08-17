@@ -31,7 +31,6 @@ public class SegmentFactory {
 
 	private static final Logger logger = LoggerFactory.getLogger(SegmentFactory.class);
 
-
 	static {
 		DateTimeConverter dtConverter = new DateConverter();
 		dtConverter.setPatterns(getDateFormats());
@@ -118,6 +117,18 @@ public class SegmentFactory {
 
 	public SingleSqlSegment gt(String fieldName, Object value) {
 		return SegmentFactory.build(SingleSegmentType.GT, fieldName, value, settings);
+	}
+
+	public SingleSqlSegment in(String fieldName, Object value) {
+		return SegmentFactory.build(SingleSegmentType.IN, fieldName, value, settings);
+	}
+
+	public SingleSqlSegment notin(String fieldName, Object value) {
+		return SegmentFactory.build(SingleSegmentType.NIN, fieldName, value, settings);
+	}
+
+	public SingleSqlSegment any(String fieldName, Object value) {
+		return SegmentFactory.build(SingleSegmentType.ANY, fieldName, value, settings);
 	}
 
 	/**

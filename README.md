@@ -1,8 +1,8 @@
-Query Builder
+Query Builder 
 ====
+[![Build Status](https://travis-ci.org/IamFive/query-builder.svg?branch=develop)](https://travis-ci.org/IamFive/query-builder)
+
 A simple tool to parse specify filter to sql.
-
-
 
 
 Basic Example

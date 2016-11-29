@@ -2,16 +2,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>edu.woo</groupId>
-	<version>1.0.0</version>
+	<groupId>com.woo</groupId>
+	<version>1.1.1</version>
+	<artifactId>query-builder</artifactId>
 	<packaging>jar</packaging>
 
-	<name>PropertyFilter</name>
+	<name>query-builder</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk.version>1.7</jdk.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<logback.version>1.0.13</logback.version>
 		<dozer.version>5.4.0</dozer.version>
@@ -97,5 +96,21 @@
 			<version>4.11</version>
 		</dependency>
 	</dependencies>
-	<artifactId>query-builder</artifactId>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>

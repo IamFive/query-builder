@@ -15,7 +15,6 @@ public class NotEqualSegment extends SingleSqlSegment {
 	 */
 	public NotEqualSegment(String fieldName, Object paramValue, Settings settings) {
 		super(fieldName, paramValue, settings);
-		this.paramKey = this.getRandomKey();
 	}
 
 	/*

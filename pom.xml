@@ -7,7 +7,7 @@
 	<artifactId>query-builder</artifactId>
 	<packaging>jar</packaging>
 
-	<name>query-builder</name>
+	<name>net.turnbig:query-builder</name>
 	<url>https://github.com/IamFive/query-builder</url>
 	<description>Criterion for jdbc, but not only Criterion</description>
 	<licenses>
@@ -95,7 +95,7 @@
 	</profiles>
 
 	<properties>
-		<slf4j.version>1.7.5</slf4j.version>
+		<slf4j.version>[1.7.5,)</slf4j.version>
 		<logback.version>1.0.13</logback.version>
 		<dozer.version>5.4.0</dozer.version>
 		<java.version>1.7</java.version>
